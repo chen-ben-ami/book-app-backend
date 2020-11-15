@@ -4,6 +4,24 @@ const cors = require('cors');
 const jwt=require('jsonwebtoken');
 require('dotenv').config();
 const mongoose=require('mongoose');
+
+
+module.exports = checkToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token === null) {
+        return res.status(401).send('No token found');
+    }
+    jwt.verify(token, process.env.TOKEN_SECRET, (error, userInfo) => {
+        if (error) {
+            return res.status(403).send('Invalid token');
+        }
+        req.userInfo=userInfo
+        next();
+    });
+}
+
+
 const admin = require('./routes/admin');
 const user = require('./routes/user');
 const login = require('./routes/login');
@@ -23,14 +41,6 @@ const User = require('./models/user');
 app.use(express.json())
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-
-module.exports=checkToken=(req,res,next)=> {
-
-}
-
-app.get("/", (req, res) => {
-    res.status(200).send("test");
-});
 
 connection.on('open', async () => {
     console.log('connected to mongoDB');
