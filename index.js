@@ -1,10 +1,11 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const jwt=require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const mongoose=require('mongoose');
-
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const booksList = require('./Books')
 
 module.exports = checkToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
@@ -16,7 +17,7 @@ module.exports = checkToken = (req, res, next) => {
         if (error) {
             return res.status(403).send('Invalid token');
         }
-        req.userInfo=userInfo
+        req.userInfo = userInfo
         next();
     });
 }
@@ -32,7 +33,7 @@ const port = process.env.PORT || "8080";
 
 //MongoDB connection
 mongoose.connect('mongodb://localhost/books-app', { useNewUrlParser: true, useUnifiedTopology: true });
-const connection=mongoose.connection;
+const connection = mongoose.connection;
 const Book = require('./models/book');
 const User = require('./models/user');
 
@@ -43,11 +44,32 @@ app.use(express.json())
 app.use(cors());
 
 connection.on('open', async () => {
-    console.log('connected to mongoDB');
-    await User.deleteMany(()=> {console.log('User collection has been deleted...')});
-    await Book.deleteMany(()=> {console.log('Book collection has been deleted...')});
+    console.log('Connected to mongoDB');
+    await User.deleteMany(() => { console.log('User collection has been deleted...') });
+    await Book.deleteMany(() => { console.log('Book collection has been deleted...') });
+    const hashedPassword = await bcrypt.hash("123", 10)
+    const admin = new User({
+        username: "admin",
+        password: hashedPassword,
+        permission: "admin",
+        lastOrder: null
+    });
+    const savedAdmin = await admin.save();
+    console.log(savedAdmin);
 
+    for (let book of booksList) {
+        const newBook = new Book({
+            bookName: book.bookName,
+            author: book.author,
+            publisher: book.publisher,
+            price: book.price,
+            imageURL: book.imageURL,
+            book: book.rating
+        });
+        await newBook.save();
+    }
 });
+
 
 
 //Routes

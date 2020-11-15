@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
         };
 
     } catch (error) {
-        res.status(500).send(error);
+        return res.status(500).send(error);
     }
 });
 
@@ -35,9 +35,8 @@ router.post('/register', async (req, res) => {
             permission: "user",
             lastOrder: null
         });
-        const newUser = await user.save();
-        res.status(200).json(user);
-
+        const savedUser = await user.save();
+        return res.status(200).json(savedUser);
     } catch (error) {
         res.status(500).send(error);
     }

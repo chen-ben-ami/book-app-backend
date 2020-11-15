@@ -1,6 +1,5 @@
 const author = {
-    authorName: String,
-    age: Number
+    authorName: String
 };
 
 module.exports = author;

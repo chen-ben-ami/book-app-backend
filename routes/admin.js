@@ -19,7 +19,7 @@ router.post('/book', checkToken, async (req, res) => {
             return res.json(addedBook);
         } else return res.status(401).send("unauthorized");
     } catch (error) {
-        res.status(500).send(error);
+        return res.status(500).send(error);
     }
 });
 
@@ -37,7 +37,7 @@ router.put('/book', checkToken, async (req, res) => {
             return res.json(updatedBook);
         } else return res.status(401).send("unauthorized");
     } catch (error) {
-        res.status(500).send(error);
+        return res.status(500).send(error);
     }
 });
 
@@ -46,7 +46,7 @@ router.delete('/book', checkToken, async (req, res) => {
         await Book.findById(req.body.bookId).deleteOne();
         return res.status(200).send('The book have been deleted');
     } catch (err) {
-        res.status(500).send(err);
+        return res.status(500).send(err);
     }
 });
 
