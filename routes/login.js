@@ -5,7 +5,6 @@ const router = express.Router();
 
 const User = require('../models/user');
 
-//stuff
 router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username });
@@ -34,8 +33,7 @@ router.post('/register', async (req, res) => {
             username: req.body.username,
             password: hashedPassword,
             permission: "user",
-            lastOrder: null,
-            token: null
+            lastOrder: null
         });
         const newUser = await user.save();
         res.status(200).json(user);
