@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
-const Purchase = require('./order');
+const Order = require('./order');
 
 const userSchema = new mongoose.Schema({
-    id:String,
-    fullName: String,
-    token: String,
-    imageURL: String,
+    username:String,
+    password:String,
     permission: String,
-    lastPurchase: Purchase
+    lastOrder: Order | null,
+    token: String
 });
 
 module.exports = mongoose.model('user', userSchema);

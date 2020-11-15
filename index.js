@@ -20,7 +20,8 @@ const User = require('./models/user');
 
 
 //App setting
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json())
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 module.exports=checkToken=(req,res,next)=> {
@@ -32,11 +33,10 @@ app.get("/", (req, res) => {
 });
 
 connection.on('open', async () => {
-    console.log('connected to mongoDB')
-    await User.deleteMany(()=> {console.log('User collection has been deleted...')})
-    await Book.deleteMany(()=> {console.log('Book collection has been deleted...')})
+    console.log('connected to mongoDB');
+    await User.deleteMany(()=> {console.log('User collection has been deleted...')});
+    await Book.deleteMany(()=> {console.log('Book collection has been deleted...')});
 
-    
 });
 
 
