@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const booksList = require('./Books')
+const booksList = require('./Books');
 
 module.exports = checkToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    if (token === null) {
+    if (token === null || token === undefined) {
         return res.status(401).send('No token found');
     }
     jwt.verify(token, process.env.TOKEN_SECRET, (error, userInfo) => {
@@ -20,13 +20,13 @@ module.exports = checkToken = (req, res, next) => {
         req.userInfo = userInfo
         next();
     });
-}
+};
 
 
 const admin = require('./routes/admin');
 const user = require('./routes/user');
 const login = require('./routes/login');
-const open = require('./routes/open');
+const shared = require('./routes/shared');
 
 const app = express();
 const port = process.env.PORT || "8080";
@@ -39,8 +39,7 @@ const User = require('./models/user');
 
 
 //App setting
-app.use(express.json())
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors());
 
 connection.on('open', async () => {
@@ -67,13 +66,13 @@ connection.on('open', async () => {
             book: book.rating
         });
         await newBook.save();
-    }
+    };
 });
 
 
 
 //Routes
-app.use(open);
+app.use(shared);
 app.use(login);
 app.use('/admin', admin);
 app.use('/user', user);

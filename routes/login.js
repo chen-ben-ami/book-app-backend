@@ -12,15 +12,16 @@ router.post('/login', async (req, res) => {
             return res.status(400).send('Cannot find user');
         }
         if (await bcrypt.compare(req.body.password, user.password)) {
-            const userInfo = { username: user.username, premission: user.permission };
+            const userInfo = { userId: user._id, username: user.username, premission: user.permission };
             const acessToken = jwt.sign(userInfo, process.env.TOKEN_SECRET);
 
-            return res.json(acessToken);
+            return res.json({ acessToken: acessToken });
         } else {
             return res.status(401).send('Username or password are incorrect');
         };
 
     } catch (error) {
+        console.log(error)
         return res.status(500).send(error);
     }
 });
@@ -36,8 +37,12 @@ router.post('/register', async (req, res) => {
             lastOrder: null
         });
         const savedUser = await user.save();
-        return res.status(200).json(savedUser);
+        const userInfo = { userId: savedUser._id, username: savedUser.username, premission: savedUser.permission };
+        const acessToken = jwt.sign(userInfo, process.env.TOKEN_SECRET);
+
+        return res.json({ acessToken: acessToken });
     } catch (error) {
+        console.log(error)
         res.status(500).send(error);
     }
 });

@@ -2,7 +2,7 @@ const booksList = [
     {
         "bookName": "Life of Pi",
         "author": {
-            "fullName": "Yann Martel",
+            "authorName": "Yann Martel",
         },
         "publisher": {
             "publisherName": "Seal Books",
@@ -15,7 +15,7 @@ const booksList = [
     {
         "bookName": "A Tale of Two Cities",
         "author": {
-            "fullName": "Charles Dickens",
+            "authorName": "Charles Dickens",
         },
         "publisher": {
             "publisherName": "Penguin Books",
@@ -28,7 +28,7 @@ const booksList = [
     {
         "bookName": "The Kite Runner",
         "author": {
-            "fullName": "Khaled Hosseini",
+            "authorName": "Khaled Hosseini",
         },
         "publisher": {
             "publisherName": "Riverhead Books",
@@ -41,7 +41,7 @@ const booksList = [
     {
         "bookName": "The Stand",
         "author": {
-            "fullName": "Stephen King",
+            "authorName": "Stephen King",
         },
         "publisher": {
             "publisherName": "Doubleday Books",
@@ -54,7 +54,7 @@ const booksList = [
     {
         "bookName": "My Sister's Keeper",
         "author": {
-            "fullName": "Jodi Picoult",
+            "authorName": "Jodi Picoult",
         },
         "publisher": {
             "publisherName": "Washington Square Press",
@@ -67,7 +67,7 @@ const booksList = [
     {
         "bookName": "The Color Purple",
         "author": {
-            "fullName": "Alice Walker",
+            "authorName": "Alice Walker",
         },
         "publisher": {
             "publisherName": "Penguin Books",
@@ -80,7 +80,7 @@ const booksList = [
     {
         "bookName": "The Road",
         "author": {
-            "fullName": "Cormac McCarthy",
+            "authorName": "Cormac McCarthy",
         },
         "publisher": {
             "publisherName": "Alfred A. Knopf",
@@ -93,7 +93,7 @@ const booksList = [
     {
         "bookName": "The Lovely Bones",
         "author": {
-            "fullName": "Alice Sebold",
+            "authorName": "Alice Sebold",
         },
         "publisher": {
             "publisherName": "Little, Brown and Company",
@@ -106,7 +106,7 @@ const booksList = [
     {
         "bookName": "The Old Man and the Sea",
         "author": {
-            "fullName": "Ernest Hemingway",
+            "authorName": "Ernest Hemingway",
         },
         "publisher": {
             "publisherName": "Scribner",
@@ -119,7 +119,7 @@ const booksList = [
     {
         "bookName": "Winnie-the-Pooh",
         "author": {
-            "fullName": "A.A. Milne",
+            "authorName": "A.A. Milne",
         },
         "publisher": {
             "publisherName": "Dutton Juvenile",
@@ -132,7 +132,7 @@ const booksList = [
     {
         "bookName": "The Outsiders",
         "author": {
-            "fullName": "S.E. Hinton",
+            "authorName": "S.E. Hinton",
         },
         "publisher": {
             "publisherName": "Puffin Books",

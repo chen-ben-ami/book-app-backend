@@ -6,24 +6,26 @@ const router = express.Router();
 
 router.put('/order-book', checkToken, async (req, res) => {
     try {
-        const user = await User.findById(req.userInfo.username);
+        const user = await User.findById(req.userInfo.userId);
         if (user) {
             const order = {
                 orderDate: moment().format('MMMM Do YYYY, h:mm:ss'),
-                bookId: req.body.bookId
+                bookId: req.query.bookId
             }
             user.order = order;
-            await User.update(user);
-            return res.status(200).send("Order successfully placed!");
+            await user.update(user);
+            const book = await Book.findById(req.query.bookId);
+            if (book) return res.status(200).json(book);
         } else return res.status(500).send("User not found");
     } catch (error) {
+        console.log(error)
         return res.status(500).send(error);
     }
 });
 
 router.get('/get-book', checkToken, async (req, res) => {
     try {
-        const book = await Book.findById(req.body.bookId);
+        const book = await Book.findById(req.query.bookId);
         if (book) return res.status(200).json(book);
     } catch (error) {
         return res.status(500).send(error);

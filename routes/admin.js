@@ -20,13 +20,13 @@ router.post('/book', checkToken, async (req, res) => {
         } else return res.status(401).send("unauthorized");
     } catch (error) {
         return res.status(500).send(error);
-    }
+    };
 });
 
 router.put('/book', checkToken, async (req, res) => {
     try {
         if (req.userInfo.premission === 'admin') {
-            const book = await Book.findById(req.body.bookId);
+            const book = await Book.findById(req.query.bookId);
             book.bookName = req.body.bookName;
             book.author = req.body.author;
             book.publisher = req.body.publisher;
@@ -38,7 +38,7 @@ router.put('/book', checkToken, async (req, res) => {
         } else return res.status(401).send("unauthorized");
     } catch (error) {
         return res.status(500).send(error);
-    }
+    };
 });
 
 router.delete('/book', checkToken, async (req, res) => {
@@ -47,7 +47,7 @@ router.delete('/book', checkToken, async (req, res) => {
         return res.status(200).send('The book have been deleted');
     } catch (err) {
         return res.status(500).send(err);
-    }
+    };
 });
 
 
