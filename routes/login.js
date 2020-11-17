@@ -37,7 +37,6 @@ router.post('/register', async (req, res) => {
         const savedUser = await user.save();
         const userInfo = { userId: savedUser._id, username: savedUser.username, premission: savedUser.permission };
         const acessToken = jwt.sign(userInfo, process.env.TOKEN_SECRET);
-
         return res.json({ acessToken: acessToken });
     } catch (error) {
         res.status(500).send(error);

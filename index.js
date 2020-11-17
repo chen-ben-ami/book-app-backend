@@ -54,8 +54,6 @@ connection.on('open', async () => {
         lastOrder: null
     });
     const savedAdmin = await admin.save();
-    console.log(savedAdmin);
-
     for (let book of booksList) {
         const newBook = new Book({
             bookName: book.bookName,
