@@ -9,7 +9,7 @@ router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username });
         if (user === null) {
-            return res.status(400).send('Cannot find user');
+            return res.status(401).send('Cannot find user');
         }
         if (await bcrypt.compare(req.body.password, user.password)) {
             const userInfo = { userId: user._id, username: user.username, premission: user.permission };
@@ -21,7 +21,6 @@ router.post('/login', async (req, res) => {
         };
 
     } catch (error) {
-        console.log(error)
         return res.status(500).send(error);
     }
 });
@@ -29,7 +28,6 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        console.log(hashedPassword)
         const user = new User({
             username: req.body.username,
             password: hashedPassword,
@@ -42,7 +40,6 @@ router.post('/register', async (req, res) => {
 
         return res.json({ acessToken: acessToken });
     } catch (error) {
-        console.log(error)
         res.status(500).send(error);
     }
 });

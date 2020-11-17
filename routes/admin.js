@@ -26,7 +26,6 @@ router.post('/book', checkToken, async (req, res) => {
 router.put('/book', checkToken, async (req, res) => {
     try {
         if (req.userInfo.premission === 'admin') {
-            console.log(req.body.publisher)
             const book = await Book.findById(req.query.bookId);
             book.bookName = req.body.bookName;
             book.author = req.body.author;
@@ -46,7 +45,6 @@ router.put('/book', checkToken, async (req, res) => {
 router.delete('/book', checkToken, async (req, res) => {
     try {
         await Book.findById(req.query.bookId).deleteOne();
-        console.log(req.body.bookId)
         const books = await Book.find();
         return res.json(books);
     } catch (err) {

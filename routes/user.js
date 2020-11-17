@@ -18,7 +18,6 @@ router.put('/order-book', checkToken, async (req, res) => {
             if (book) return res.status(200).json(book);
         } else return res.status(500).send("User not found");
     } catch (error) {
-        console.log(error)
         return res.status(500).send(error);
     }
 });
