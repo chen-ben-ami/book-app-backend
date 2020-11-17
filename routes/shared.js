@@ -11,7 +11,7 @@ router.get("/test", checkToken, async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const books = await Book.find();
-        res.json(books);
+        return res.json(books);
     } catch (error) {
         return res.status(500).send(error);
     }

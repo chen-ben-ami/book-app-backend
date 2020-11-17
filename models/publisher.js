@@ -1,6 +1,6 @@
 const publisher = {
     publisherName: String,
-    year: String,
+    year: Number,
 };
 
 module.exports = publisher;

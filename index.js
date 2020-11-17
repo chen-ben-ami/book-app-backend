@@ -46,7 +46,7 @@ connection.on('open', async () => {
     console.log('Connected to mongoDB');
     await User.deleteMany(() => { console.log('User collection has been deleted...') });
     await Book.deleteMany(() => { console.log('Book collection has been deleted...') });
-    const hashedPassword = await bcrypt.hash("123", 10)
+    const hashedPassword = await bcrypt.hash("admin", 10)
     const admin = new User({
         username: "admin",
         password: hashedPassword,
@@ -63,7 +63,7 @@ connection.on('open', async () => {
             publisher: book.publisher,
             price: book.price,
             imageURL: book.imageURL,
-            book: book.rating
+            rating: book.rating
         });
         await newBook.save();
     };

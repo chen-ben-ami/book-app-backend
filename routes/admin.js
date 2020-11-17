@@ -26,6 +26,7 @@ router.post('/book', checkToken, async (req, res) => {
 router.put('/book', checkToken, async (req, res) => {
     try {
         if (req.userInfo.premission === 'admin') {
+            console.log(req.body.publisher)
             const book = await Book.findById(req.query.bookId);
             book.bookName = req.body.bookName;
             book.author = req.body.author;
@@ -33,8 +34,9 @@ router.put('/book', checkToken, async (req, res) => {
             book.imageURL = req.body.imageURL;
             book.price = req.body.price;
             book.rating = req.body.rating;
-            const updatedBook = await book.save();
-            return res.json(updatedBook);
+            await book.save();
+            const books = await Book.find();
+            return res.json(books);
         } else return res.status(401).send("unauthorized");
     } catch (error) {
         return res.status(500).send(error);
@@ -43,8 +45,10 @@ router.put('/book', checkToken, async (req, res) => {
 
 router.delete('/book', checkToken, async (req, res) => {
     try {
-        await Book.findById(req.body.bookId).deleteOne();
-        return res.status(200).send('The book have been deleted');
+        await Book.findById(req.query.bookId).deleteOne();
+        console.log(req.body.bookId)
+        const books = await Book.find();
+        return res.json(books);
     } catch (err) {
         return res.status(500).send(err);
     };
